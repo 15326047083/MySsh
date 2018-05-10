@@ -45,28 +45,26 @@
 									<label class="sr-only" for="form-username">Username</label> <input
 										type="email" name="email" placeholder="E-mail..."
 										class="form-username form-control" id="form-username"
-										id="email" onkeyup="username(value)" value="${user.email}">
+										id="email" onchange="username(value)" value="${user.email}">
 								</div>
-								<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 								<script type="text/javascript">
 									function username(email) {
-										$.ajax({
-											type : "post",
-											data : $('#newUser').serialize(),
-											url : '/MySsh/user/verifyEmail',
-											dataType : "json",
-											async : false,
-											cache : false,
-											success : function(date) {
-												if ("1" == date) {
-													alert("账号已存在!!!");
-												} else {
-												}
-											},
-											error : function() {
-												alert();
-											},
-										});
+										 $.ajax({ 
+									            type: 'post', 
+									            data:$('#newUser').serialize(),
+											    url:'user/verifyEmail',  
+									            dataType:"json",
+									            async:true,
+									            success: function () {
+									            },
+									            error:function()
+									            {
+									        		document.getElementById('span'+formId).parentNode.removeChild(document.getElementById('span'+formId)); //添加到form中显示
+									                var span=document.createElement('span');
+									                span.setAttribute('id', 'span'+formId); //定义类型是文本输
+									        		document.getElementById(formId).appendChild(span); //添加到form中显示
+									            },            
+									        });
 									}
 								</script>
 								<div class="form-group">

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.leiyuan.myssh.entity.User;
 import com.leiyuan.myssh.repository.UserRepository;
@@ -46,6 +47,18 @@ public class UserController {
 	@RequestMapping("/toNewUser")
 	public String toNewUser() {
 		return "new";
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/verifyEmail", method = RequestMethod.POST)
+	public String verifyEmail(User user) {
+		User u = new User();
+		u = userService.getByEmail(user.getEmail());
+		if (u != null) {
+			return "1";
+		} else {
+			return "2";
+		}
 	}
 
 	/**
