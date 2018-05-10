@@ -18,9 +18,9 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "user")
 public class User {
 	@Id
-	@GeneratedValue(generator = "native")
-	@GenericGenerator(name = "native", strategy = "native")
-	private Long id;
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid")
+	private String id;
 	@Column(name = "email")
 	private String email;
 	@Column(name = "password")
@@ -36,7 +36,7 @@ public class User {
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(Long id, String email, String password, String sex, String birthday, int flag) {
+	public User(String id, String email, String password, String sex, String birthday, int flag) {
 		super();
 		this.id = id;
 		this.email = email;
@@ -52,11 +52,11 @@ public class User {
 				+ birthday + ", flag=" + flag + "]";
 	}
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
