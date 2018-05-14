@@ -58,7 +58,7 @@
 											async : false,
 											cache : false,
 											success : function(date) {
-												
+
 												if ("1" == date) {
 													alert("账号已存在!!!");
 												} else {

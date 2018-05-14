@@ -1,5 +1,8 @@
 package com.leiyuan.myssh.controller;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,10 +36,20 @@ public class UserController {
 	 * @param user
 	 * @return
 	 */
-	@RequestMapping(value = "login", method = RequestMethod.POST)
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@ResponseBody
 	public String login(User user) {
+		Subject subject = SecurityUtils.getSubject();
+		UsernamePasswordToken token = new UsernamePasswordToken(user.getEmail(), user.getPassword());
+		try {
+
+			subject.login(token); 
+		} catch (Exception e) {
+			// TODO: handle exception
+			return e.getMessage();
+		}
 		System.out.println(user.toString());
-		return "";
+		return "登陆成功";
 	}
 
 	/**

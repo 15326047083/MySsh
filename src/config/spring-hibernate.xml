@@ -22,7 +22,28 @@
 	<!-- hibernate配置 -->
 	<context:property-placeholder
 		location="classpath:/jdbc.properties" />
+	<!-- shiro配置 -->
+	<bean id="shiroFilter"
+		class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager"></property>
+		<property name="loginUrl" value="WEB-INF/views/login.jsp"></property>
+		<property name="unauthorizedUrl" value="403.html"></property>
+		<property name="filterChainDefinitions">
+			<value>
+				/WEB-INF/views/login.jsp=anon<!-- /user/toLogin=anon -->
+				/*=authc
+			</value>
+		</property>
+	</bean>
+	<!-- 创建securityManager对象 -->
+	<bean class="org.apache.shiro.web.mgt.DefaultWebSecurityManager"
+		id="securityManager">
+		<property name="realm" ref="realm"></property>
+	</bean>
 
+	<bean id="realm" class="com.leiyuan.myssh.util.CustomRealm">
+
+	</bean>
 	<!--配置数据源 -->
 	<bean id="dataSource"
 		class="com.mchange.v2.c3p0.ComboPooledDataSource"
@@ -54,7 +75,7 @@
 			</props>
 		</property>
 	</bean>
-	
+
 	<!-- 事物管理器配置 -->
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate5.HibernateTransactionManager">

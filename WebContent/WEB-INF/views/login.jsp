@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="/MySsh/test/Login" method="post">
+<form action="/MySsh/user/login" method="post">
 	<input name="email" type="email">
 	<input name="password" type="password">
 	<input type="submit">
