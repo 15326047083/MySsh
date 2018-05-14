@@ -43,13 +43,15 @@ public class UserController {
 		UsernamePasswordToken token = new UsernamePasswordToken(user.getEmail(), user.getPassword());
 		try {
 
-			subject.login(token); 
+			subject.login(token);
 		} catch (Exception e) {
 			// TODO: handle exception
 			return e.getMessage();
 		}
-		System.out.println(user.toString());
-		return "登陆成功";
+		if (subject.hasRole("user1")) {
+			return "you have admin";
+		}
+		return "you don't have admin";
 	}
 
 	/**
@@ -65,6 +67,7 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping(value = "/verifyEmail", method = RequestMethod.POST)
 	public String verifyEmail(User user) {
+
 		User u = new User();
 		u = userService.getByEmail(user.getEmail());
 		if (u != null) {
